@@ -1,0 +1,21 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_ERR">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%t] %c{1.} - %msg%n%throwable</Pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- Set the root logger to ERROR level to suppress all INFO and DEBUG logs -->
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+
+        <!-- Example: Suppress logs from Jupyter-related packages -->
+        <Logger name="jupyter" level="off" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+    </Loggers>
+</Configuration>

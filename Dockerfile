@@ -11,6 +11,9 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
+# Copy the custom log4j2.xml file for logging configuration
+COPY src/main/resources/log4j2.xml /app/log4j2.xml
+
 # Build the project using Maven
 RUN mvn clean package
 
@@ -18,4 +21,4 @@ RUN mvn clean package
 RUN cp target/*.jar app.jar && cp -r target/libs libs
 
 # Set the entry point to run the Spark job with the correct classpath
-ENTRYPOINT ["java", "-cp", "app.jar:libs/*", "org.example.SparkFileReader"]
+ENTRYPOINT ["java", "-Dlog4j.configurationFile=file:/app/log4j2.xml", "-cp", "app.jar:libs/*", "org.example.SparkFileReader"]
